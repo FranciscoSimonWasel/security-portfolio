@@ -18,6 +18,7 @@ Penetration tester focused on HTB Labs and OSCP preparation.
 | [Dancing](HTB/Dancing.md) | Windows | Very Easy | Pwned |
 | [Redeemer](HTB/Redeemer.md) | Linux | Very Easy | Pwned |
 | [Reactor](HTB/Reactor.md) | Linux | Easy | Pwned |
+| [Principal](HTB/Principal.md) | Linux | Easy | Pwned |
 
 ---
 

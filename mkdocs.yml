@@ -31,6 +31,7 @@ nav:
     - Dancing: HTB/Dancing.md
     - Redeemer: HTB/Redeemer.md
     - Reactor: HTB/Reactor.md
+    - Principal: HTB/Principal.md
 
 markdown_extensions:
   - pymdownx.highlight:
