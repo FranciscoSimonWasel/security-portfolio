@@ -3,7 +3,7 @@
 **Date:** 2026-05-26
 **Author:** Franksimon
 **Platform:** Hack The Box
-**Difficulty:** EASY
+**Difficulty:** MEDIUM
 **OS:** Linux (Ubuntu 24.04.4 LTS)
 **IP:** 10.129.244.220
 **Status:** Pwned
