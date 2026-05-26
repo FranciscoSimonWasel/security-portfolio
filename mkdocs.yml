@@ -1,0 +1,43 @@
+site_name: Francisco Simon — Security Portfolio
+site_description: HTB Write-ups & Penetration Testing
+site_author: Franksimon
+site_url: https://franciscosimonwasel.github.io/security-portfolio
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: deep purple
+    accent: deep purple
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+    - navigation.footer
+
+extra_css:
+  - assets/css/custom.css
+
+nav:
+  - Home: index.md
+  - HTB Write-ups:
+    - Meow: HTB/Meow.md
+    - Fawn: HTB/Fawn.md
+    - Dancing: HTB/Dancing.md
+    - Redeemer: HTB/Redeemer.md
+    - Reactor: HTB/Reactor.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - tables
+  - attr_list
