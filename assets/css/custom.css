@@ -1,0 +1,42 @@
+:root {
+  --md-primary-fg-color: #7c3aed;
+  --md-primary-fg-color--light: #a855f7;
+  --md-primary-fg-color--dark: #5b21b6;
+  --md-accent-fg-color: #a855f7;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #0f0f1a;
+  --md-default-bg-color--light: #1a1a2e;
+  --md-default-bg-color--lighter: #16213e;
+  --md-code-bg-color: #12121f;
+  --md-typeset-a-color: #a855f7;
+}
+
+.md-header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-bottom: 1px solid #7c3aed33;
+}
+
+.md-nav__title {
+  color: #a855f7;
+}
+
+code {
+  color: #c4b5fd;
+  background-color: #1e1e3a !important;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: #1a1a2e;
+  color: #a855f7;
+}
+
+.md-typeset table:not([class]) tr:nth-child(even) {
+  background-color: #12121f;
+}
+
+.md-typeset .highlight span.filename {
+  background-color: #1a1a2e;
+  border-bottom: 1px solid #7c3aed44;
+}

