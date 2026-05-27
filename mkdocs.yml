@@ -32,6 +32,7 @@ nav:
     - Redeemer: HTB/Redeemer.md
     - Reactor: HTB/Reactor.md
     - Principal: HTB/Principal.md
+    - Pirate: HTB/Pirate.md
 
 markdown_extensions:
   - pymdownx.highlight:

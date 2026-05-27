@@ -19,6 +19,7 @@ Penetration tester focused on HTB Labs and OSCP preparation.
 | [Redeemer](HTB/Redeemer.md) | Linux | Very Easy | Pwned |
 | [Reactor](HTB/Reactor.md) | Linux | Easy | Pwned |
 | [Principal](HTB/Principal.md) | Linux | Medium | Pwned |
+| [Pirate](HTB/Pirate.md) | Windows | Hard | Pwned |
 
 ---
 
